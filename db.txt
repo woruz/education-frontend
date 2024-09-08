@@ -1,0 +1,92 @@
+Table admins {
+  id pk
+  name varchar
+  role_id varchar
+  email varchar
+  password varchar
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table roles {
+  id pk
+  role_name varchar
+  created_at timestamp
+  updated_at timestamp
+}
+
+
+Table exams {
+  id pk
+  course_id varchar
+  exam_name varchar
+  exam_score integer
+  exam_date varchar
+  exam_time timestamp
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table questions {
+  id pk
+  exam_id varchar
+  question varchar
+  answer_type varchar
+  options varchar
+  correct_answer varchar
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table courses {
+  id pk
+  course_name varchar
+  is_deleted varchar
+  price integer
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table courseStudentMapper {
+  id pk
+  course_id varchar
+  student_id varchar
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table students {
+  id pk
+  name varchar
+  role_id varchar
+  email varchar
+  password varchar
+  created_at timestamp
+  updated_at timestamp
+}
+
+Table studentsExamDetails {
+  id pk
+  student_id varchar
+  exam_id varchar
+  exam_score varchar
+  created_at timestamp
+  updated_at timestamp
+}
+
+
+Ref: "roles"."id" - "admins"."role_id"
+
+Ref: "exams"."id" < "questions"."exam_id"
+
+Ref: "courses"."id" < "courseStudentMapper"."course_id"
+
+Ref: "students"."id" < "courseStudentMapper"."student_id"
+
+Ref: "roles"."id" - "students"."role_id"
+
+Ref: "courses"."id" < "exams"."course_id"
+
+Ref: "students"."id" < "studentsExamDetails"."student_id"
+
+Ref: "exams"."id" < "studentsExamDetails"."exam_id"
